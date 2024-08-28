@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import userReducer from "./user/slice";
+import userSlice from "./user/slice"; // importando o slice que acabamos de criar
 
 export default combineReducers({
-    user: userReducer,
+    user: userSlice,
 })

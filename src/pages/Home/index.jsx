@@ -1,16 +1,21 @@
+//Componente Home
 import styles from './home.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
-export function Home() {
+import { useSelector } from 'react-redux' //método do redux para poder consumir informações
 
-  function handleDeleteAddress(){
+export function Home() {
+  // Importando nosso redux user para consumir as informações
+  const { user } = useSelector((rootReducer) => rootReducer.user)
+
+  function handleDeleteAddress() {
     alert("Endereço deletado com sucesso!")
   }
 
   return (
     <>
-    <Header/>
+      <Header />
       <div className={styles.container}>
         <nav className={styles.nav}>
           <Link to="/" className={styles.link}>
@@ -27,18 +32,25 @@ export function Home() {
         <main className={styles.content}>
           <div className={styles.message}>
             <h1 className={styles.title}>
-              Olá Visitante, bem vindo!
+              {user ? user.name : 'Olá visitante'}, Bem Vindo!
             </h1>
 
-            <span>Email: ....</span>
+            {user && (
+              <span>Email: {user.email}</span>
+            )}
 
 
-            <strong className={styles.addressLabel}>Endereço atual:</strong>
-            <div className={styles.address}>
-              <p>Rua centro, n 123</p>
-              
-              <button onClick={handleDeleteAddress}>Deletar endereço</button>
-            </div>
+            {user && user.adress && (
+              <>
+                <strong className={styles.addressLabel}>Endereço atual:</strong>
+                <div className={styles.address}>
+                  <p>{user.adress.location}, N°{user.adress.number}</p>
+
+                  <button onClick={handleDeleteAddress}>Deletar endereço</button>
+                </div>
+              </>
+            )}
+
 
           </div>
 

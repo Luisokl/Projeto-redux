@@ -1,16 +1,33 @@
 import { useState } from 'react'; 
 import styles from './login.module.css'
 
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'; // método para disparar uma ação
+import { createUser } from '../../redux/user/slice' // importando a action 
 
 export function Login() {
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
+  const navigate = useNavigate()
+
   function handleLogin(e){
     e.preventDefault()
+
+    if(name === '' && email === ''){
+      alert('DIGITE AS INFORMAÇÕES DO USUÁRIO!!')
+      return
+    }
     
-    console.log(name, email)
+    // enviando as informações do usuário para o redux user
+    dispatch(createUser({
+      name: name,
+      email: email
+    }))
+
+    navigate('/painel')
   }
 
   return (
