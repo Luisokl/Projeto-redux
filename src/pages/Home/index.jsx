@@ -40,11 +40,11 @@ export function Home() {
             )}
 
 
-            {user && user.adress && (
+            {user && user.address && (
               <>
                 <strong className={styles.addressLabel}>Endereço atual:</strong>
                 <div className={styles.address}>
-                  <p>{user.adress.location}, N°{user.adress.number}</p>
+                  <p>{user.address.location}, N°{user.address.number}</p>
 
                   <button onClick={handleDeleteAddress}>Deletar endereço</button>
                 </div>

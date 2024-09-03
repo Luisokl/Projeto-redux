@@ -30,11 +30,35 @@ export const userSlice = createSlice({
                 ...state,
                 user: null,
             }
+        },
+
+        addAdress: (state, action) => {
+            if(action.payload.location === "" || action.payload.number === ""){
+                alert("Preencha todos os campos!!")
+                return { ...state }
+            }
+
+            if(state.user === null){
+                alert("Faça o login!!")
+            }
+
+            alert("Dados atualizados com sucesso!")
+
+            return{
+                ...state,
+                user:{
+                    ...state.user,
+                    address: {
+                        location: action.payload.location,
+                        number: action.payload.number,
+                    }
+                }
+            }
         }
     }
 })
 
-// Exportando a nossa action createUser
-export const { createUser, logoutUser } = userSlice.actions
+// Exportando a nossas actions
+export const { createUser, logoutUser, addAdress } = userSlice.actions
 
 export default userSlice.reducer
